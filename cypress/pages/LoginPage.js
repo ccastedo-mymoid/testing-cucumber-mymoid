@@ -1,28 +1,32 @@
-class LoginPage {
-  elements = {
-    usernameInput: () => cy.get("#user-name"),
-    passwordInput: () => cy.get("#password"),
-    loginBtn: () => cy.get("#login-button"),
-    errorMessage: () => cy.get('h3[data-test="error"]'),
-  };
+import { button } from "cypress/components/Button";
 
-  typeUsername(username) {
-    this.elements.usernameInput().type(username);
+class LoginPage {
+  
+  elements = {
+    title: () => cy.get('h1'),
+    email: () => cy.get('input[id="username"]'),
+    password: () => cy.get('input[id="password"]'),
+    continueBtn: () => cy.get('button').eq(2),
+  }
+
+  typeEmail(email) {
+    this.elements.email().type(email);
   }
 
   typePassword(password) {
-    this.elements.passwordInput().type(password);
+    this.elements.password().type(password);
   }
 
-  clickLogin() {
-    this.elements.loginBtn().click();
+  clickContinueButton() {
+    this.elements.continueBtn().click();
   }
 
-  submitLogin(username,password){
-    this.elements.usernameInput().type(username);
-    this.elements.passwordInput().type(password);
-    this.elements.loginBtn().click();
+  login(email, password) {
+    this.typeEmail(email);
+    this.typePassword(password);
+    this.clickContinueButton();
   }
+
 }
 
 export const loginPage = new LoginPage();
